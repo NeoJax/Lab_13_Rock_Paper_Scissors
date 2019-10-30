@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace Lab_13_Rock_Paper_Scissors
 {
     public class RoshamboApp
@@ -10,6 +11,7 @@ namespace Lab_13_Rock_Paper_Scissors
 
         public void Start()
         {
+            StartTourneyCheck();
             string verdict = Throw();
             Console.WriteLine(verdict);
             if (verdict == "Win")
@@ -29,53 +31,8 @@ namespace Lab_13_Rock_Paper_Scissors
             Player opponent = Choose();
             Roshambo playerChoice = Validator.ValidateChoice();
             Roshambo opponentChoice = opponent.generateRoshambo();
-            
-            if (playerChoice == Roshambo.rock)
-            {
-                if (opponentChoice == Roshambo.paper)
-                {
-                    return "Lose";
-                }
-                else if (opponentChoice == Roshambo.rock)
-                {
-                    return "Tie";
-                }
-                else if (opponentChoice == Roshambo.scissors)
-                {
-                    return "Win";
-                }
-            }
-            else if (playerChoice == Roshambo.paper)
-            {
-                if (opponentChoice == Roshambo.paper)
-                {
-                    return "Tie";
-                }
-                else if (opponentChoice == Roshambo.rock)
-                {
-                    return "Win";
-                }
-                else if (opponentChoice == Roshambo.scissors)
-                {
-                    return "Lose";
-                }
-            }
-            else if (playerChoice == Roshambo.scissors)
-            {
-                if (opponentChoice == Roshambo.paper)
-                {
-                    return "Win";
-                }
-                else if (opponentChoice == Roshambo.rock)
-                {
-                    return "Lose";
-                }
-                else if (opponentChoice == Roshambo.scissors)
-                {
-                    return "Tie";
-                }
-            }
-            return "Blah";
+
+            return Winner(playerChoice, opponentChoice);
         }
 
         public void Continue()
@@ -116,6 +73,125 @@ namespace Lab_13_Rock_Paper_Scissors
             }
         }
 
+        public void StartTourneyCheck()
+        {
+            Console.WriteLine("Would you like to participate in a tournament? (y or n)");
+            string input = Console.ReadLine();
+            if (input == "y")
+            {
+                StartTourney();
+            }
+            else if (input == "n")
+            {
+                Console.WriteLine("Enjoy the normal game.");
+            }
+            else
+            {
+                Console.WriteLine("Please answer with a valid input");
+                StartTourneyCheck();
+            }
+        }
 
+        public void StartTourney()
+        {
+            TheRock theRock = new TheRock("Dwayne Johnson", Roshambo.rock);
+            EdwardScissorhands edward = new EdwardScissorhands("Edward Scissorhands", Roshambo.scissors);
+            SuperPaper paperDood = new SuperPaper("That one guy who like paper a lot", Roshambo.paper);
+            ThatOneGuy bob = new ThatOneGuy("Bob", Roshambo.rock);
+            ThatOtherDude mark = new ThatOtherDude("Mark", Roshambo.paper);
+            OldMan oldGuy = new OldMan("Old Guy", Roshambo.scissors);
+            Gon gon = new Gon("Gon", Roshambo.rock);
+            ActualPlayer player = new ActualPlayer("You", Roshambo.paper);
+            Random random = new Random();
+            int player1Number;
+            int player2Number;
+            Player player1;
+            Player player2;
+            string check;
+
+            List<Player> players = new List<Player>()
+            {
+                theRock,
+                edward,
+                paperDood,
+                bob,
+                mark,
+                oldGuy,
+                gon,
+                player
+            };
+
+            while (players.Count > 1)
+            {
+                player1Number = random.Next(0, players.Count);
+                player2Number = random.Next(0, players.Count);
+                while (player1Number == player2Number)
+                {
+                    player2Number = random.Next(0, players.Count);
+                }
+                player1 = players[player1Number];
+                player2 = players[player2Number];
+                check = Winner(player1.generateRoshambo(), player2.generateRoshambo());
+                while (check == "Tie")
+                {
+                    check = Winner(player1.generateRoshambo(), player2.generateRoshambo());
+                }
+                if (check == "Win")
+                {
+                    Console.WriteLine($"{player1.Name} is the winner!");
+                    players.Remove(player2);
+                }
+                else
+                {
+                    Console.WriteLine($"{player2.Name} is the winner!");
+                    players.Remove(player1);
+                }
+            }
+            Console.WriteLine($"{players[0].Name} is the winner of the Tournament!");
+
+            StartTourneyCheck();
+        }
+
+        public string Winner(Roshambo player1, Roshambo player2)
+        {
+            switch (player1)
+            {
+                case Roshambo.paper:
+                    switch (player2)
+                    {
+                        case Roshambo.paper:
+                            return "Tie";
+                        case Roshambo.rock:
+                            return "Win";
+                        case Roshambo.scissors:
+                            return "Lose";
+                    }
+                    break;
+                case Roshambo.rock:
+                    switch (player2)
+                    {
+                        case Roshambo.paper:
+                            return "Lose";
+                        case Roshambo.rock:
+                            return "Tie";
+                        case Roshambo.scissors:
+                            return "Win";
+                    }
+                    break;
+                case Roshambo.scissors:
+                    switch (player2)
+                    {
+                        case Roshambo.paper:
+                            return "Win";
+                        case Roshambo.rock:
+                            return "Lose";
+                        case Roshambo.scissors:
+                            return "Tie";
+                    }
+                    break;
+            }
+
+            return "Blah";
+        }
     }
 }

@@ -1,26 +1,24 @@
 ﻿using System;
 namespace Lab_13_Rock_Paper_Scissors
 {
-    class Gon : Player
+    class ThatOtherDude : Player
     {
-        public Gon(string name, Roshambo result) : base(name, result) { }
+        public ThatOtherDude(string name, Roshambo result) : base(name, result) { }
 
         public override Roshambo generateRoshambo()
         {
             Random rand = new Random();
-            int random = rand.Next(1, 300);
+            int random = rand.Next(1, 200);
+
             if (random <= 100)
             {
                 return Roshambo.paper;
-            }
-            else if (random > 100 && random <= 200)
-            {
-                return Roshambo.rock;
             }
             else
             {
                 return Roshambo.scissors;
             }
         }
+
     }
 }
