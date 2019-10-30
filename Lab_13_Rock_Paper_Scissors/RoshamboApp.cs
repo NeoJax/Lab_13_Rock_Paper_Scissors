@@ -11,6 +11,7 @@ namespace Lab_13_Rock_Paper_Scissors
         public void Start()
         {
             string verdict = Throw();
+            Console.WriteLine(verdict);
             if (verdict == "Win")
             {
                 Wins++;
@@ -26,52 +27,52 @@ namespace Lab_13_Rock_Paper_Scissors
         public string Throw()
         {
             Player opponent = Choose();
-            Console.WriteLine("Pick your weapon. (Rock, Paper, Scissors)");
-            string input = Console.ReadLine();
-
-            if (input == "Rock")
+            Roshambo playerChoice = Validator.ValidateChoice();
+            Roshambo opponentChoice = opponent.generateRoshambo();
+            
+            if (playerChoice == Roshambo.rock)
             {
-                if (opponent.generateRoshambo() == Roshambo.Paper)
+                if (opponentChoice == Roshambo.paper)
                 {
                     return "Lose";
                 }
-                else if (opponent.generateRoshambo() == Roshambo.Rock)
+                else if (opponentChoice == Roshambo.rock)
                 {
                     return "Tie";
                 }
-                else if (opponent.generateRoshambo() == Roshambo.Scissors)
+                else if (opponentChoice == Roshambo.scissors)
                 {
                     return "Win";
                 }
             }
-            else if (input == "Paper")
+            else if (playerChoice == Roshambo.paper)
             {
-                if (opponent.generateRoshambo() == Roshambo.Paper)
-                {
-                    return "Lose";
-                }
-                else if (opponent.generateRoshambo() == Roshambo.Rock)
+                if (opponentChoice == Roshambo.paper)
                 {
                     return "Tie";
                 }
-                else if (opponent.generateRoshambo() == Roshambo.Scissors)
+                else if (opponentChoice == Roshambo.rock)
                 {
                     return "Win";
+                }
+                else if (opponentChoice == Roshambo.scissors)
+                {
+                    return "Lose";
                 }
             }
-            else if (input == "Scissors")
+            else if (playerChoice == Roshambo.scissors)
             {
-                if (opponent.generateRoshambo() == Roshambo.Paper)
+                if (opponentChoice == Roshambo.paper)
+                {
+                    return "Win";
+                }
+                else if (opponentChoice == Roshambo.rock)
                 {
                     return "Lose";
                 }
-                else if (opponent.generateRoshambo() == Roshambo.Rock)
+                else if (opponentChoice == Roshambo.scissors)
                 {
                     return "Tie";
-                }
-                else if (opponent.generateRoshambo() == Roshambo.Scissors)
-                {
-                    return "Win";
                 }
             }
             return "Blah";
@@ -94,17 +95,25 @@ namespace Lab_13_Rock_Paper_Scissors
 
         Player Choose()
         {
-            Console.WriteLine("Choose a player.");
-            string input = Console.ReadLine();
-            if (input == "TheRock")
+            Console.WriteLine("Choose a player. (TheRock, Gon, ThatOneGuy)");
+            string input = Console.ReadLine().ToLower();
+            if (input == "therock")
             {
-                return new TheRock("duder", Roshambo.Rock);
+                return new TheRock("duder", Roshambo.rock);
             }
-            else if (input == "Gon")
+            else if (input == "gon")
             {
-                return new Gon("duderino", Roshambo.Paper);
+                return new Gon("duderino", Roshambo.paper);
             }
-            return new ThatOneGuy("dude", Roshambo.Scissors);
+            else if (input == "thatoneguy")
+            {
+                return new ThatOneGuy("dude", Roshambo.scissors);
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid player.");
+                return Choose();
+            }
         }
 
 

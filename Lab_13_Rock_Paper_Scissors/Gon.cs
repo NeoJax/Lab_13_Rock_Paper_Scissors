@@ -8,21 +8,20 @@ namespace Lab_13_Rock_Paper_Scissors
         public override Roshambo generateRoshambo()
         {
             Random rand = new Random();
-            int random = rand.Next(1,3);
-
-            if (random == 1)
+            int random = rand.Next(1, 300);
+            Console.WriteLine(random);
+            if (random <= 100)
             {
-                return Roshambo.Paper;
+                return Roshambo.paper;
             }
-            else if (random == 2)
+            else if (random > 100 && random <= 200)
             {
-                return Roshambo.Rock;
+                return Roshambo.rock;
             }
-            else if (random == 3)
+            else
             {
-                return Roshambo.Scissors;
+                return Roshambo.scissors;
             }
-            return Roshambo.Paper;
         }
     }
 }

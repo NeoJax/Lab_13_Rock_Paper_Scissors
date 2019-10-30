@@ -2,13 +2,14 @@
 
 namespace Lab_13_Rock_Paper_Scissors
 {
-    enum Roshambo { Rock, Paper, Scissors };
+    public enum Roshambo { rock, paper, scissors };
 
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            RoshamboApp game = new RoshamboApp();
+            game.Start();
         }
     }
 }

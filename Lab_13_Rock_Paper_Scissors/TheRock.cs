@@ -7,7 +7,7 @@ namespace Lab_13_Rock_Paper_Scissors
 
         public override Roshambo generateRoshambo()
         {
-            return Roshambo.Rock;
+            return Roshambo.rock;
         }
     }
 }
