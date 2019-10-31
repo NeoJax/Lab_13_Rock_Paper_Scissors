@@ -5,7 +5,7 @@ namespace Lab_13_Rock_Paper_Scissors
     {
         public Gon(string name, Roshambo result) : base(name, result) { }
 
-        public override Roshambo generateRoshambo()
+        public override Roshambo GenerateRoshambo()
         {
             Random rand = new Random();
             int random = rand.Next(1, 300);

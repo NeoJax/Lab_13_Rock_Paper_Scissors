@@ -5,7 +5,7 @@ namespace Lab_13_Rock_Paper_Scissors
     {
         public ActualPlayer(string name, Roshambo result) : base(name, result) { }
 
-        public override Roshambo generateRoshambo()
+        public override Roshambo GenerateRoshambo()
         {
             return Validator.ValidateChoice();
         }

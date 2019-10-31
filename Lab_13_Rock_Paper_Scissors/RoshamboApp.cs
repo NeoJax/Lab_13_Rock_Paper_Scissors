@@ -30,7 +30,7 @@ namespace Lab_13_Rock_Paper_Scissors
         {
             Player opponent = Choose();
             Roshambo playerChoice = Validator.ValidateChoice();
-            Roshambo opponentChoice = opponent.generateRoshambo();
+            Roshambo opponentChoice = opponent.GenerateRoshambo();
 
             return Winner(playerChoice, opponentChoice);
         }
@@ -131,13 +131,14 @@ namespace Lab_13_Rock_Paper_Scissors
                 }
                 player1 = players[player1Number];
                 player2 = players[player2Number];
-                check = Winner(player1.generateRoshambo(), player2.generateRoshambo());
+                check = Winner(player1.GenerateRoshambo(), player2.GenerateRoshambo());
                 while (check == "Tie")
                 {
-                    check = Winner(player1.generateRoshambo(), player2.generateRoshambo());
+                    check = Winner(player1.GenerateRoshambo(), player2.GenerateRoshambo());
                 }
                 if (check == "Win")
                 {
+                    Console.WriteLine($"{player2.Name} is the loser.");
                     Console.WriteLine($"{player1.Name} is the winner!");
                     players.Remove(player2);
                 }

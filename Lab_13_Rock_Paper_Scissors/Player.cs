@@ -10,6 +10,6 @@ namespace Lab_13_Rock_Paper_Scissors
             Name = name;
             Result = result;
         }
-        abstract public Roshambo generateRoshambo();
+        abstract public Roshambo GenerateRoshambo();
     }
 }
